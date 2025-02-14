@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.14.25</title>
+    <style>
+        body {
+            background-color: #FFC0CB;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .envelope {
+            position: relative;
+            width: 250px;
+            height: 200px;
+            background: #90ee90;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: width 0.5s ease-in-out;
+        }
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #76c776;
+            clip-path: polygon(0 0, 100% 0, 50% 50%);
+        }
+        .letter {
+            position: absolute;
+            width: 250px;
+            background-color: #f5f0e7;
+            border-radius: 10px;
+            transform: translateY(50px);
+            transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .open .letter {
+            display: flex;
+            transform: translateY(-20px);
+            width: 400px;
+        }
+        .open {
+            width: 400px;
+        }
+        .heart {
+            color: red;
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .message {
+            color: #1c791c;
+            font-size: 16px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .footer {
+            margin-top: 15px;
+            font-size: 14px;
+            color: red;
+        }
+        .falling-heart {
+            position: absolute;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: fall 5s linear infinite;
+        }
+        .falling-heart::before,
+        .falling-heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .falling-heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .falling-heart::after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" onclick="toggleLetter()">
+        <div class="letter">
+            <div class="heart">❤</div>
+            <h2 style="color: red;">happy valentine's day, Kat! 🐰</h2>
+            <p class="message">today was special to me — not because of what we did, but because i got to spend it with you. just being by your side and having your presence makes any day feel like hearts day to me.</p>
+            <p class="message">i’m so grateful for you — for every little moment we share, for the way you make me feel, and for simply just being you. no matter what, i’ll always be here, and you’ll always have me, bun. through every ordinary day and special one, i’ll be right here, looking forward to many more with you.</p>
+            <p class="message">i love you so much, bun. always! :)</p>
+            <p class="footer">- Ben <3</p>
+        </div>
+    </div>
+    <script>
+        function toggleLetter() {
+            document.querySelector('.envelope').classList.toggle('open');
+        }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
